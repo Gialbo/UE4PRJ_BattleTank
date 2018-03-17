@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "TankPlayerController.h"
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
-#include "TankPlayerController.h"
 
 
 ATank* ATankPlayerController::GetControlledTank() const
@@ -29,18 +29,18 @@ void ATankPlayerController::BeginPlay()
 void ATankPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	AimTowardsCrossAir();
+	AimTowardsCrossHair();
 }
 
-void ATankPlayerController::AimTowardsCrossAir() 
+void ATankPlayerController::AimTowardsCrossHair() 
 {
 	if (!GetControlledTank()) { return; }
 
 	FVector HitLocation; // Out parameter
 	if (GetSightRayHitLocation(HitLocation))//Side effect, is going to line trace
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *HitLocation.ToString());
-		// TODO Tell the controlled tank to aim at this point
+		//Tell the controlled tank to aim at this point
+		GetControlledTank()->AimAt(HitLocation);
 	}
 }
 
