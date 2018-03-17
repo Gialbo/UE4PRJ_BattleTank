@@ -22,3 +22,18 @@ void ATankPlayerController::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("Cannot posess the tank"));
 	}
 }
+
+void ATankPlayerController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	AimTowardsCrossAir();
+}
+
+void ATankPlayerController::AimTowardsCrossAir() 
+{
+	if (!GetControlledTank()) { return; }
+
+	//Get world location if linetrace through crosshair
+	//If it hits the landscape
+		//Tell the controlled tank to aim at this point
+}
