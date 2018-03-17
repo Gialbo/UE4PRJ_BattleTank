@@ -2,12 +2,15 @@
 
 #pragma once
 
-#include "TankAimingComponent.h"
+
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h" //Put new includes above
 
+//Forward declaration
 class UTankBarrel;
+
+class UTankAimingComponent;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -20,9 +23,6 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
-
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 protected:
 	// Called when the game starts or when spawned
