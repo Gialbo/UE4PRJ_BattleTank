@@ -47,7 +47,6 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 	if (bHaveAimSolution) // Calculate the OutLaunchVelocity
 	{
-		UE_LOG(LogTemp, Warning, TEXT("OutLaunchVelocityRotation: %s"), *OutLaunchVelocity.Rotation().ToString());
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
 	}
