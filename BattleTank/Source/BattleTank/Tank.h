@@ -7,12 +7,14 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h" //Put new includes above
 
-//Forward declaration
+//Forward declarations
 class UTankBarrel;
 
 class UTankTurret;
 
 class UTankAimingComponent;
+
+class UTankMovementComponent;
 
 class AProjectile;
 
@@ -41,6 +43,9 @@ protected:
 
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
+	UPROPERTY(BlueprintReadOnly)
+	UTankMovementComponent* TankMovementComponent = nullptr;
+
 public:	
 
 	// Called to bind functionality to input
@@ -50,7 +55,7 @@ public:
 
 private:
 	//local barrel reference for spawning projectile
-	UTankBarrel * Barrel = nullptr;
+	UTankBarrel* Barrel = nullptr;
 
 	double LastFireTime = 0;
 
