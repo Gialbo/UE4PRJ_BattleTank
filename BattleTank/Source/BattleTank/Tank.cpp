@@ -17,9 +17,9 @@ ATank::ATank()
 		FName("Aiming Component")
 		);
 
-	TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(
+	/*TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(
 		FName("Movement component")
-		);
+		);*/
 }
 
 void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
