@@ -13,10 +13,31 @@ void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* 
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Intend move forward throw:  %f"), Throw);
-
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
 	//TODO prevent double-speed from two different input
 }
 
+void UTankMovementComponent::IntendTurnRight(float Throw)
+{
+	LeftTrack->SetThrottle(Throw);
+	RightTrack->SetThrottle(-Throw);
+	//TODO prevent double-speed from two different input
+}
+
+void UTankMovementComponent::RequestDirectMove(const FVector &MoveVelocity, bool bForceMaxSpeed)
+{
+	//No need to call super as we're replacing the functionality
+
+	FString TankName = GetOwner()->GetName();
+	FVector TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
+	FVector AIForwardIntention = MoveVelocity.GetSafeNormal();
+
+	float EffectiveSpeed = FVector::DotProduct(TankForward, AIForwardIntention);
+	float RotationSpeed = FVector::CrossProduct(TankForward, AIForwardIntention).Z;
+
+	IntendMoveForward(EffectiveSpeed);
+	IntendTurnRight(RotationSpeed);
+
+	UE_LOG(LogTemp, Warning,TEXT("%s vectoring to: %s"),*TankName, *AIForwardIntention.ToString());
+}
