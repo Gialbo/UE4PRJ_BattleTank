@@ -37,6 +37,4 @@ void UTankMovementComponent::RequestDirectMove(const FVector &MoveVelocity, bool
 
 	IntendMoveForward(EffectiveSpeed);
 	IntendTurnRight(RotationSpeed);
-
-	UE_LOG(LogTemp, Warning,TEXT("%s vectoring to: %s"),*TankName, *AIForwardIntention.ToString());
 }

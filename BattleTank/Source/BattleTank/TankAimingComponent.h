@@ -37,12 +37,16 @@ public:
 	void Fire();
 
 protected:
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
 	UPROPERTY(BlueprintReadOnly, Category = State)
 	EFiringState FiringState = EFiringState::Reloading;
 
 private:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
+
+	virtual void BeginPlay() override;
 
 	void MoveBarrelTowards(FVector AimDirection);
 
@@ -61,4 +65,8 @@ private:
 
 	UPROPERTY(EditAnyWhere, Category = Firing)
 	float LaunchSpeed = 10000; // Sensible starting value of 1000 m/s
+
+	bool IsBarrelMoving();
+
+	FVector AimDirection;
 };
