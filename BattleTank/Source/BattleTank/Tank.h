@@ -14,8 +14,6 @@ class UTankTurret;
 
 class UTankAimingComponent;
 
-class UTankMovementComponent;
-
 class AProjectile;
 
 UCLASS()
@@ -38,9 +36,6 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
-	UPROPERTY(BlueprintReadOnly)
-	UTankMovementComponent* TankMovementComponent = nullptr;
-
 public:	
 	void AimAt(FVector HitLocation);
 
@@ -56,6 +51,7 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float ReloadTimeInSeconds = 3;
 
+	//TODO Remove when fire is moved
 	UPROPERTY(EditAnyWhere, Category = Firing)
 	float LaunchSpeed = 10000; // Sensible starting value of 1000 m/s
 	

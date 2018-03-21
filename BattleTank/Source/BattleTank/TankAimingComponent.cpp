@@ -22,8 +22,10 @@ void UTankAimingComponent::Initialise(UTankBarrel * BarrelToset, UTankTurret * T
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
-	if (!Barrel) { return; }
+	if (!ensure(Barrel) || !ensure(Turret)) { return; }
 
+	UE_LOG(LogTemp, Warning, TEXT("Gianni non ci arriva"));
+	
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 
