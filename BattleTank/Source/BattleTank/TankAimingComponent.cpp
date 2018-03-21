@@ -114,7 +114,7 @@ void UTankAimingComponent::Fire()
 	if (RoundsLeft <= 0) {
 		return;
 	}
-	else if (FiringState == EFiringState::Locked || FiringState == EFiringState::Locked) {
+	else if (FiringState == EFiringState::Aiming || FiringState == EFiringState::Locked) {
 		RoundsLeft--;
 		if (!ensure(Barrel)) { return; }
 		//Spawn projectile at the socket location
