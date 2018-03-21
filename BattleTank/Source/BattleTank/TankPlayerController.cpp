@@ -12,7 +12,7 @@ void ATankPlayerController::BeginPlay()
 	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 
 	if (!ensure(AimingComponent)) { return; }
-		FoundAimingComponent(AimingComponent);
+	FoundAimingComponent(AimingComponent);
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -28,7 +28,9 @@ void ATankPlayerController::AimTowardsCrossHair()
 	if (!ensure(AimingComponent)) { return; }
 
 	FVector HitLocation; // Out parameter
-	if (GetSightRayHitLocation(HitLocation))//Side effect, is going to line trace
+	bool bGotHitLocation = GetSightRayHitLocation(HitLocation);
+	//UE_LOG(LogTemp, Warning, TEXT("bGotHitLocation: %i"), bGotHitLocation);
+	if (bGotHitLocation)//Side effect, is going to line trace
 	{
 		//Tell the controlled tank to aim at this point
 		AimingComponent->AimAt(HitLocation);
@@ -51,10 +53,10 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 	if (GetLookDirection(ScreenLocation, LookDirection))
 	{
 		//Line trace along that direction, and see what we hit (up to a max range)
-		GetLookVectorHitLocation(LookDirection, HitLocation);
+		return GetLookVectorHitLocation(LookDirection, HitLocation);
 	}
 
-	return true;
+	return false;
 }
 
 bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const

@@ -18,8 +18,10 @@ enum class EFiringState : uint8
 {
 	Locked,
 	Aiming,
-	Reloading
+	Reloading,
+	OutOfAmmo
 };
+
 
 //Hold barrel's properties and Elevate method
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -32,6 +34,11 @@ public:
 	void Initialise(UTankBarrel* BarrelToset, UTankTurret* TurretToSet);
 
 	void AimAt(FVector HitLocation);
+
+	EFiringState GetFiringState() const;
+
+	UFUNCTION(BlueprintCallable, Category = Firing)
+	int32 GetRoundsLeft() const;
 
 	UFUNCTION(BlueprintCallable, Category = Firing)
 	void Fire();
@@ -69,4 +76,6 @@ private:
 	bool IsBarrelMoving();
 
 	FVector AimDirection;
+
+	int32 RoundsLeft = 3;
 };
