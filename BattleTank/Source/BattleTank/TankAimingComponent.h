@@ -73,9 +73,10 @@ private:
 	UPROPERTY(EditAnyWhere, Category = Firing)
 	float LaunchSpeed = 10000; // Sensible starting value of 1000 m/s
 
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	int32 RoundsLeft = 3;
+
 	bool IsBarrelMoving();
 
 	FVector AimDirection;
-
-	int32 RoundsLeft = 3;
 };
