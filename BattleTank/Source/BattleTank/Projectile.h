@@ -50,6 +50,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	float DestroyDelay = 10.0f;
+	
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	float ProjectileDamage = 20; // Sensible default value
 
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent * HitComponent, AActor * OtherActor, UPrimitiveComponent * OtherComponent, FVector NormalImpulse, const FHitResult & Hit);

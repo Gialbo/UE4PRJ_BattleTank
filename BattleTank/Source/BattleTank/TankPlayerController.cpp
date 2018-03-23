@@ -4,6 +4,7 @@
 #include "Engine/World.h"
 #include "TankAimingComponent.h"
 #include "GameFramework/PlayerController.h"
+#include "Tank.h"
 
 void ATankPlayerController::BeginPlay()
 {
@@ -21,7 +22,19 @@ void ATankPlayerController::Tick(float DeltaTime)
 	AimTowardsCrossHair();
 }
 
-void ATankPlayerController::AimTowardsCrossHair() 
+void ATankPlayerController::SetPawn(APawn * InPawn)
+{
+	Super::SetPawn(InPawn);
+	if (InPawn)
+	{
+		auto PossessedTank = Cast<ATank>(InPawn);
+		if (!ensure(PossessedTank)) { return; }
+		//Subscribe to tank's death event
+		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnPlayerTankDeath);
+	}
+}
+
+void ATankPlayerController::AimTowardsCrossHair()
 {
 	if (!GetPawn()) { return; } // if not possessing
 	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
@@ -90,4 +103,10 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 		HitLocation = FVector(0);
 		return false;
 	} 
+}
+
+void ATankPlayerController::OnPlayerTankDeath()
+{
+	//UE_LOG(LogTemp, Warning, TEXT("Player tank died"));
+	StartSpectatingOnly();
 }
